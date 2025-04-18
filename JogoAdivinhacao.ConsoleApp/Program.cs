@@ -6,35 +6,74 @@
 
         static void Main(string[] args)
         {
-            Console.WriteLine("-----------------------------");
+            Console.WriteLine("--------------------------------------");
             Console.WriteLine("Jogo de Adivinhação: ");
-            Console.WriteLine("-----------------------------");
+            Console.WriteLine("--------------------------------------");
 
-            //Lógica do Jogo
+            //Escolha de Dificuldade
+
+            Console.WriteLine("Escolha um nível de dificuldade: ");
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("1 - Fácil (10 tentativas)");
+            Console.WriteLine("2 - Médio (5 tentativas)");
+            Console.WriteLine("3 - Difícil (3 tentativas)");
+            Console.WriteLine("--------------------------------------");
+
+            string dificuldade = Console.ReadLine();
+
+            int tentativas = 0;
+
+            if (dificuldade == "1")
+                tentativas = 10;
+            
+
+            else if (dificuldade == "2")
+                tentativas = 5;
+
+            else if (dificuldade == "3")
+                tentativas = 3;
+
+            else
+                Console.WriteLine("Por favor, insira um número válido: ");
+
+            //Escolha do número secreto
 
             Random geradorNumeros = new Random();
 
             int numeroSecreto = geradorNumeros.Next(1, 21);
 
-            Console.Write("Digite um número para churar: ");
-            int numeroDigitado = Convert.ToInt32(Console.ReadLine());
+            //Lógica do Jogo
 
-            if (numeroDigitado > numeroSecreto) 
+            for (int tentativa = 1; tentativa <= tentativas; tentativa++)
             {
-                Console.WriteLine("O número digitado é maior que o número secreto.");
-            }
+                Console.Clear();
 
-            else if (numeroDigitado < numeroSecreto)
-            {
-                Console.WriteLine("O número digitado é menor que o número secreto.");
-            }
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine($"Tentativa {tentativa} de {tentativas}:");
+                Console.WriteLine("--------------------------------------");
 
-            else
-            {
-                Console.WriteLine("Parabéns, você acertou o número secreto!");
-            }
+                Console.Write("Digite um número para chutar (de 1 á 20): ");
 
-            Console.ReadLine();
+                int numeroDigitado = Convert.ToInt32(Console.ReadLine());
+
+                if (numeroDigitado > numeroSecreto)
+                    Console.WriteLine("O número digitado é maior que o número secreto.");
+
+
+                else if (numeroDigitado < numeroSecreto)
+                    Console.WriteLine("O número digitado é menor que o número secreto.");
+
+
+                else
+                {
+                    Console.WriteLine("Parabéns, você acertou o número secreto!");
+                    Console.ReadLine();
+                    break;
+                }
+
+                Console.WriteLine("Pressione ENTER para continuar: ");
+                Console.ReadLine();
+            }
         }
     }
 }
