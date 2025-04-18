@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        //Versão 5 Desafio: Armazenar e exibir números já digitados
+        //Versão 6 Desafio 2: Implementar pontuação
 
         static void Main(string[] args)
         {
@@ -44,8 +44,13 @@
 
                 int numeroSecreto = geradorNumeros.Next(1, 21);
 
+                //Declarando o armazenamento de números já chutados
                 int[] numerosChutados = new int[100];
                 int contNumerosChutados = 0;
+
+                //Sistema de pontuação
+                int pontuacao = 1000;
+
 
                 //Lógica do Jogo
                 for (int tentativa = 1; tentativa <= tentativas; tentativa++)
@@ -55,6 +60,8 @@
                     Console.WriteLine("--------------------------------------");
                     Console.WriteLine($"Tentativa {tentativa} de {tentativas}:");
                     Console.WriteLine("--------------------------------------");
+
+                    Console.WriteLine("Pontuação: " + pontuacao);
 
                     Console.Write($"Números já chutados: ");
 
@@ -93,16 +100,21 @@
                     contNumerosChutados++;
 
                     if (numeroDigitado > numeroSecreto)
+                    {
                         Console.WriteLine("O número digitado é maior que o número secreto.");
-
+                        pontuacao -= Math.Abs((numeroDigitado - numeroSecreto) / 2);
+                    }
 
                     else if (numeroDigitado < numeroSecreto)
+                    {
                         Console.WriteLine("O número digitado é menor que o número secreto.");
-
-
+                        pontuacao -= Math.Abs((numeroDigitado - numeroSecreto) / 2);
+                    }
+                        
                     else
                     {
                         Console.WriteLine("Parabéns, você acertou o número secreto!");
+                        Console.WriteLine("Sua pontuação final foi de " + pontuacao + " pontos!");
                         Console.ReadLine();
                         break;
                     }
