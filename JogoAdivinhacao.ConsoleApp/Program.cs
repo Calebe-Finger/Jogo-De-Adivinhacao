@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        //Versão 4: Implementar múltiplas tentativas
+        //Versão 5 Desafio: Armazenar e exibir números já digitados
 
         static void Main(string[] args)
         {
@@ -44,6 +44,9 @@
 
                 int numeroSecreto = geradorNumeros.Next(1, 21);
 
+                int[] numerosChutados = new int[100];
+                int contNumerosChutados = 0;
+
                 //Lógica do Jogo
                 for (int tentativa = 1; tentativa <= tentativas; tentativa++)
                 {
@@ -53,9 +56,41 @@
                     Console.WriteLine($"Tentativa {tentativa} de {tentativas}:");
                     Console.WriteLine("--------------------------------------");
 
-                    Console.Write("Digite um número para chutar (de 1 á 20): ");
+                    Console.Write($"Números já chutados: ");
 
-                    int numeroDigitado = Convert.ToInt32(Console.ReadLine());
+                    for (int i = 0; i < numerosChutados.Length; i++)
+                    {
+                        if (numerosChutados[i] > 0)
+                            Console.Write(numerosChutados[i] + " ");
+                    }
+
+                    Console.WriteLine("\n--------------------------------------");
+
+                    int numeroDigitado;
+                    bool numeroRepetido;
+
+                    do
+                    {
+                        numeroRepetido = false;
+
+                        Console.Write("Digite um número para chutar (de 1 á 20): ");
+                        numeroDigitado = Convert.ToInt32(Console.ReadLine());
+
+                        for (int i = 0; i < numerosChutados.Length; i++)
+                        {
+                            if (numerosChutados[i] == numeroDigitado)
+                            {
+                                Console.WriteLine("Você já digitou esse número, tente novamente: ");
+                                Console.ReadLine();
+
+                                numeroRepetido = true;
+                                break;
+                            }
+                        }
+                    } while (numeroRepetido == true);
+
+                    numerosChutados[contNumerosChutados] = numeroDigitado;
+                    contNumerosChutados++;
 
                     if (numeroDigitado > numeroSecreto)
                         Console.WriteLine("O número digitado é maior que o número secreto.");
